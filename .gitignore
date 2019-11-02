@@ -1,0 +1,8 @@
+# Project out files
+Project/Project/out/*
+Project/Project/*.dep
+Project/Project/*.map
+Project/Project/*.lst
+Project/Project/*.bak
+Project/Project/*.Administrator
+Project/Project/*.uvopt
