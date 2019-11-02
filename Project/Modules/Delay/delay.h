@@ -24,7 +24,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
 
-void Delay(uint32_t nCount);
+void Delay_Init(void);
+
+void Delay_ms(uint32_t nms);
+
+void Delay_us(uint32_t nus);
 
 #ifdef __cplusplus
 }
