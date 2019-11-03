@@ -26,6 +26,8 @@
 
 void USART_Configuration(USART_TypeDef* USARTx , uint32_t nBaudRate);
 
+void USART_SendString(USART_TypeDef* USARTx , const uint8_t *nString);
+
 #ifdef __cplusplus
 }
 #endif

@@ -184,6 +184,24 @@ void USART_Configuration(USART_TypeDef* USARTx , uint32_t nBaudRate)
     }
 }
 
+/**
+  * @brief  Configuration USART
+  * @param  USARTx:USAER port
+  *         nString:data
+  * @retval None
+  */
+void USART_SendString(USART_TypeDef* USARTx , const uint8_t *nString)
+{
+    uint8_t *theStringPtr = (uint8_t *)nString;
+    while(*theStringPtr)
+    {
+        while(!USART_GetFlagStatus(USARTx,USART_FLAG_TXE));
+        USART_SendData(USARTx, *theStringPtr);
+        while(USART_GetFlagStatus(USARTx, USART_FLAG_TC));
+        theStringPtr++;
+    }
+}
+
 #ifdef __GNUC__
   /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
      set to 'Yes') calls __io_putchar() */
