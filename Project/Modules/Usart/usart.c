@@ -37,13 +37,13 @@ static void USART1_Init(uint32_t nBaudRate)
     // Configure USART1 Rx (PA.09)
     GPIO_InitStrue.GPIO_Mode  = GPIO_Mode_AF_PP;
     GPIO_InitStrue.GPIO_Pin   = GPIO_Pin_9;
-    GPIO_InitStrue.GPIO_Speed = GPIO_Speed_10MHz;
+    GPIO_InitStrue.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA,&GPIO_InitStrue);
 
     // Configure USART2 Tx (PA.10)
     GPIO_InitStrue.GPIO_Mode  = GPIO_Mode_IN_FLOATING;
     GPIO_InitStrue.GPIO_Pin   = GPIO_Pin_10;
-    GPIO_InitStrue.GPIO_Speed = GPIO_Speed_10MHz;
+    GPIO_InitStrue.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA,&GPIO_InitStrue);
 
     // Set USART1 parameters
@@ -238,6 +238,7 @@ PUTCHAR_PROTOTYPE
 #endif
     /* Place your implementation of fputc here */
     /* e.g. write a character to the USART */
+    while(!USART_GetFlagStatus(theUSARTx,USART_FLAG_TXE));
     USART_SendData(theUSARTx, (uint8_t) ch);
     /* Loop until the end of transmission */
     while (USART_GetFlagStatus(theUSARTx, USART_FLAG_TC) == RESET)
