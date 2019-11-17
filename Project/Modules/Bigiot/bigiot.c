@@ -115,7 +115,7 @@ void BigiotAlertMessage(const u8 *id,const u8 *message)
  * @param  id:Device id apikey:Device Key
  * @retval None
  */
-void BigiotLogout(const char *id,const char *apikey)
+void BigiotLogout(const u8 *id,const u8 *apikey)
 {
     uint8_t theSendPtr[60] = {0};
     sprintf(theSendPtr,"{\"M\":\"checkout\",\"ID\":\"%s\",\"K\":\"%s\"}",id,apikey);
