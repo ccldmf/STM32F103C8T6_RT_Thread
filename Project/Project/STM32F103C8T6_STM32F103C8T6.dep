@@ -1,5 +1,5 @@
 Dependencies for Project 'STM32F103C8T6', Target 'STM32F103C8T6': (DO NOT MODIFY !)
-F (..\User\main.c)(0x5DDBE1F9)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\Core -I..\Libraries\CMSIS\CM3\CoreSupport -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\Libraries\STM32F10x_StdPeriph_Driver\src -I..\Modules\Delay -I..\Modules\DHT11 -I..\Modules\LED -I..\Modules\Usart -I..\Modules\ESP8266 -I..\Modules\Bigiot-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\ST\STM32F10x-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -DUSART3_PRINTF-o .\out\main.o --omf_browse .\out\main.crf --depend .\out\main.d)
+F (..\User\main.c)(0x5DFEF8D0)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\Core -I..\Libraries\CMSIS\CM3\CoreSupport -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\Libraries\STM32F10x_StdPeriph_Driver\src -I..\Modules\Delay -I..\Modules\DHT11 -I..\Modules\LED -I..\Modules\Usart -I..\Modules\ESP8266 -I..\Modules\Bigiot-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\ST\STM32F10x-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -DUSART3_PRINTF-o .\out\main.o --omf_browse .\out\main.crf --depend .\out\main.d)
 I (..\Core\stm32f10x.h)(0x5DBD9E8F)
 I (..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x4CBC3900)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7C554)
@@ -33,7 +33,7 @@ I (..\Modules\Delay\delay.h)(0x5DBDA916)
 I (..\Modules\Usart\usart.h)(0x5DBE3E76)
 I (..\Modules\ESP8266\esp8266.h)(0x5DD8A534)
 I (..\Modules\Bigiot\bigiot.h)(0x5DD8A534)
-I (..\Modules\DHT11\dht11.h)(0x5DDBDAAF)
+I (..\Modules\DHT11\dht11.h)(0x5DDBE280)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C7C554)
 F (..\Modules\Delay\delay.c)(0x5DBDA916)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\Core -I..\Libraries\CMSIS\CM3\CoreSupport -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\Libraries\STM32F10x_StdPeriph_Driver\src -I..\Modules\Delay -I..\Modules\DHT11 -I..\Modules\LED -I..\Modules\Usart -I..\Modules\ESP8266 -I..\Modules\Bigiot-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\ST\STM32F10x-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -DUSART3_PRINTF-o .\out\delay.o --omf_browse .\out\delay.crf --depend .\out\delay.d)
 I (..\Modules\Delay\delay.h)(0x5DBDA916)
@@ -66,8 +66,8 @@ I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x5DCF7F63)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x5DCF7F63)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5DCF7F62)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_systick.h)(0x4CCCFE31)
-F (..\Modules\DHT11\dht11.c)(0x5DDBE153)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\Core -I..\Libraries\CMSIS\CM3\CoreSupport -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\Libraries\STM32F10x_StdPeriph_Driver\src -I..\Modules\Delay -I..\Modules\DHT11 -I..\Modules\LED -I..\Modules\Usart -I..\Modules\ESP8266 -I..\Modules\Bigiot-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\ST\STM32F10x-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -DUSART3_PRINTF-o .\out\dht11.o --omf_browse .\out\dht11.crf --depend .\out\dht11.d)
-I (..\Modules\DHT11\dht11.h)(0x5DDBDAAF)
+F (..\Modules\DHT11\dht11.c)(0x5DDBE27A)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\User -I..\Core -I..\Libraries\CMSIS\CM3\CoreSupport -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\Libraries\STM32F10x_StdPeriph_Driver\src -I..\Modules\Delay -I..\Modules\DHT11 -I..\Modules\LED -I..\Modules\Usart -I..\Modules\ESP8266 -I..\Modules\Bigiot-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\ST\STM32F10x-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -DUSART3_PRINTF-o .\out\dht11.o --omf_browse .\out\dht11.crf --depend .\out\dht11.d)
+I (..\Modules\DHT11\dht11.h)(0x5DDBE280)
 I (..\Core\stm32f10x.h)(0x5DBD9E8F)
 I (..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x4CBC3900)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7C554)
