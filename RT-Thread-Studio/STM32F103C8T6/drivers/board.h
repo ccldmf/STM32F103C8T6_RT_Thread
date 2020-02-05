@@ -39,6 +39,8 @@ extern "C" {
   */
 
 #define BSP_USING_UART1
+#define BSP_USING_UART2
+#define BSP_USING_UART3
 
 #if defined(BSP_USING_UART1)
 #define UART1_TX_PORT       GPIOA
@@ -47,16 +49,16 @@ extern "C" {
 #define UART1_RX_PIN        GPIO_PIN_10
 #endif
 #if defined(BSP_USING_UART2)
-#define UART2_TX_PORT       GPIOX
-#define UART2_RX_PORT       GPIOX
-#define UART2_TX_PIN        GPIO_PIN_X
-#define UART2_RX_PIN        GPIO_PIN_X
+#define UART2_TX_PORT       GPIOA
+#define UART2_RX_PORT       GPIOA
+#define UART2_TX_PIN        GPIO_PIN_2
+#define UART2_RX_PIN        GPIO_PIN_3
 #endif
 #if defined(BSP_USING_UART3)
-#define UART3_TX_PORT       GPIOX
-#define UART3_RX_PORT       GPIOX
-#define UART3_TX_PIN        GPIO_PIN_X
-#define UART3_RX_PIN        GPIO_PIN_X
+#define UART3_TX_PORT       GPIOB
+#define UART3_RX_PORT       GPIOB
+#define UART3_TX_PIN        GPIO_PIN_10
+#define UART3_RX_PIN        GPIO_PIN_11
 #endif
 #if defined(BSP_USING_UART4)
 #define UART4_TX_PORT       GPIOX

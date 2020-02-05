@@ -14,4 +14,10 @@
 
 其中工程名，工程位置，使用的芯片，调试器等根据实际情况选择。
 
+## 如何配置RT-Thread的UART
+- 设置开发板使能UART port
+在board.h文件中，可以根据每个开发板自身资源使用情况设置UART
+- 配置console使用的串口
+在rtconfig.h文件中，修改#define RT_CONSOLE_DEVICE_NAME "uart1"，可以根据开发板实际的串口使用情况修改。
+
 ## 参考
