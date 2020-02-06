@@ -24,7 +24,6 @@ int main(void)
 {
     const char str[] = "hello RT-Thread!\r\n";
     const char str2[] = "hello RT-Thread2!\r\n";
-    const char str3[] = "hello RT-Thread3!\r\n";
 
     LED_Init();
 
@@ -39,9 +38,9 @@ int main(void)
         rt_thread_mdelay(100);
         LED_Off();
 
-        UART_SendString(USING_UART_PORT_1,str,sizeof(str));
-        UART_SendString(USING_UART_PORT_2,str2,sizeof(str2));
-        UART_SendString(USING_UART_PORT_3,str3,sizeof(str3));
+        UART_SendString(USING_UART_PORT_1,str);
+        UART_SendString(USING_UART_PORT_2,str2);
+        UART_SendString(USING_UART_PORT_3,"hello RT-Thread3!\r\n");
 
         rt_thread_mdelay(100);
     }
