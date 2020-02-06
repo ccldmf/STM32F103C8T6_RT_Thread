@@ -11,26 +11,39 @@
 #include <rtthread.h>
 #include <board.h>
 #include <rtdevice.h>
+#include "./LED/led.h"
+#include "./UART/uart.h"
 
 #define DBG_TAG "main"
 #define DBG_LVL DBG_LOG
 #include <rtdbg.h>
 
-/* PLEASE DEFINE the LED0 pin for your board, such as: PB12 */
-#define LED0_PIN    GET_PIN(B, 12)
+#define SAMPLE_UART_NAME       "uart3"    /* 串口设备名称 */
 
 int main(void)
 {
-    int count = 1;
-    /* set LED0 pin mode to output */
-    rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
+    const char str[] = "hello RT-Thread!\r\n";
+    const char str2[] = "hello RT-Thread2!\r\n";
+    const char str3[] = "hello RT-Thread3!\r\n";
 
-    while (count++)
+    LED_Init();
+
+    UART_Init(USING_UART_PORT_1);
+    UART_Init(USING_UART_PORT_2);
+    UART_Init(USING_UART_PORT_3);
+
+    while (1)
     {
-        /* set LED0 pin level to high or low */
-        rt_pin_write(LED0_PIN, count % 2);
-        LOG_D("Hello RT-Thread!");
-        rt_thread_mdelay(1000);
+        LED_On();
+        //LOG_D("Hello RT-Thread!!!!!!!!");
+        rt_thread_mdelay(100);
+        LED_Off();
+
+        UART_SendString(USING_UART_PORT_1,str,sizeof(str));
+        UART_SendString(USING_UART_PORT_2,str2,sizeof(str2));
+        UART_SendString(USING_UART_PORT_3,str3,sizeof(str3));
+
+        rt_thread_mdelay(100);
     }
 
     return RT_EOK;
