@@ -17,6 +17,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "uart.h"
+#include <string.h>
 
 rt_device_t mUART_PORT_1;
 rt_device_t mUART_PORT_2;
@@ -88,18 +89,18 @@ void UART_Init(enum UART_PORT aPort)
   *         aData:data
   * @retval None
   */
-void UART_SendString(enum UART_PORT aPort,const char *aData,int aLength)
+void UART_SendString(enum UART_PORT aPort,const char *aData)
 {
     if(USING_UART_PORT_1 == aPort)
         {
-            rt_device_write(mUART_PORT_1,0,aData,aLength);
+            rt_device_write(mUART_PORT_1,0,aData,strlen(aData));
         }
         else if(USING_UART_PORT_2 == aPort)
         {
-            rt_device_write(mUART_PORT_2,0,aData,aLength);
+            rt_device_write(mUART_PORT_2,0,aData,strlen(aData));
         }
         else if(USING_UART_PORT_3 == aPort)
         {
-            rt_device_write(mUART_PORT_3,0,aData,aLength);
+            rt_device_write(mUART_PORT_3,0,aData,strlen(aData));
         }
 }

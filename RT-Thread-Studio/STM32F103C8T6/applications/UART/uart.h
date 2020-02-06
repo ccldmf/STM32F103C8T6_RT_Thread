@@ -56,7 +56,7 @@
 
 void UART_Init(enum UART_PORT);
 
-void UART_SendString(enum UART_PORT, const char *,int);
+void UART_SendString(enum UART_PORT, const char *);
 
 #ifdef __cplusplus
 }
