@@ -79,7 +79,7 @@
 #define RT_PIPE_BUFSZ 512
 #define RT_USING_SERIAL
 #define RT_SERIAL_USING_DMA
-#define RT_SERIAL_RB_BUFSZ 64
+#define RT_SERIAL_RB_BUFSZ 256
 #define RT_USING_I2C
 #define RT_USING_I2C_BITOPS
 #define RT_USING_PIN
@@ -167,9 +167,25 @@
 /* On-chip Peripheral Drivers */
 
 #define BSP_USING_GPIO
+
+/*-----------------------------------------------------
+USART Configure:
+    PA9     ------> USART1_TX
+    PA10    ------> USART1_RX
+
+    PA2     ------> USART2_TX
+    PA3     ------> USART2_RX
+
+    PB10     ------> USART3_TX
+    PB11     ------> USART3_RX
+-----------------------------------------------------*/
 #define BSP_USING_UART
 #define BSP_USING_UART1
+#define BSP_USING_UART2
+#define BSP_USING_UART3
 #define BSP_UART1_RX_USING_DMA
+#define BSP_UART2_RX_USING_DMA
+
 #define BSP_USING_SPI
 #define BSP_USING_SPI1
 #define BSP_SPI1_TX_USING_DMA
