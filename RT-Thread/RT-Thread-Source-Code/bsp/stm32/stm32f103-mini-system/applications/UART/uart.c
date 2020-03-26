@@ -54,8 +54,8 @@ void (*mCallBackFunction)(char *);
 UART Receive Data Thread Configure
 -----------------------------------------------------*/
 #define UART_RECV_DATA_THREAD_NAME          "RX_THD"
-#define UART_RECV_DATA_THREAD_PRIORITY      25
-#define UART_RECV_DATA_THREAD_STACK_SIZE    512
+#define UART_RECV_DATA_THREAD_PRIORITY      11
+#define UART_RECV_DATA_THREAD_STACK_SIZE    1024
 #define UART_RECV_DATA_THREAD_TIMESLICE     5
 
 /**

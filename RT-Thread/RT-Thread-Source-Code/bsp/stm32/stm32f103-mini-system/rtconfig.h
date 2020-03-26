@@ -186,6 +186,16 @@ USART Configure:
 #define BSP_UART1_RX_USING_DMA
 #define BSP_UART2_RX_USING_DMA
 
+/*-----------------------------------------------------
+ESP8266 Configure:
+
+-----------------------------------------------------*/
+#define BSP_USING_SEMAPHORE
+#define BSP_USING_ESP8266
+#define BSP_ENABLE_ESP8266_DEBUG
+#define ESP8266_SSID            "TP-LINK_028A"
+#define ESP8266_PASSWORLD       "ccldmf1994"
+
 #define BSP_USING_SPI
 #define BSP_USING_SPI1
 #define BSP_SPI1_TX_USING_DMA
