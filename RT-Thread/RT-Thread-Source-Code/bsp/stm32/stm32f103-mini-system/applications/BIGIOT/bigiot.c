@@ -20,8 +20,8 @@
 static char mBigiotLoginSuccessfulFlag = 0;
 
 /**
- *@brief 设备登录成功标志
- *@param None
+ *@brief  设备登录成功标志
+ *@param  None
  *@return 1:成功  0:失败
  */
 char BigiotLoginSuccessfulFlag(void)
@@ -30,8 +30,8 @@ char BigiotLoginSuccessfulFlag(void)
 }
 
 /**
- *@brief 设备登录返回结果
- *@param recv_data:收到的返回数据
+ *@brief  设备登录返回结果
+ *@param  recv_data:收到的返回数据
  *@return 无
  */
 static void BigiotLoginCallbackFunc(char *recv_data)
@@ -44,8 +44,8 @@ static void BigiotLoginCallbackFunc(char *recv_data)
 }
 
 /**
- *@brief 设备登录
- *@param id:设备ID apikey:设备apikey
+ *@brief  设备登录
+ *@param  id:设备ID apikey:设备apikey
  *@return 无
  */
 void BigiotLogin(const char *id,const char *apikey)
@@ -57,8 +57,8 @@ void BigiotLogin(const char *id,const char *apikey)
 }
 
 /**
- *@brief 发送数据
- *@param id:设备id data_id:数据接口ID value:值
+ *@brief  发送数据
+ *@param  id:设备id data_id:数据接口ID value:值
  *@return 无
  */
 void BigiotSendSingleData(const char *id,const char *data_id,const char *value)
@@ -69,8 +69,8 @@ void BigiotSendSingleData(const char *id,const char *data_id,const char *value)
 }
 
 /**
- *@brief 查询设备是否在线结果
- *@param recv_data：接收到数据
+ *@brief  查询设备是否在线结果
+ *@param  recv_data：接收到数据
  *@return 无
  */
 static void BigiotIsOnLineCallbackFunc(char *recv_data)
@@ -87,8 +87,8 @@ static void BigiotIsOnLineCallbackFunc(char *recv_data)
 }
 
 /**
- *@brief 查询设备是否在线
- *@param id:设备的id
+ *@brief  查询设备是否在线
+ *@param  id:设备的id
  *@return 无
  */
 void BigiotIsOnLine(const char *id)
@@ -100,8 +100,8 @@ void BigiotIsOnLine(const char *id)
 }
 
 /**
- *@brief 设备下线结果
- *@param recv_data：Recv Data
+ *@brief  设备下线结果
+ *@param  recv_data：Recv Data
  *@return 无
  */
 static void BigiotLogoutCallbackFunc(char *recv_data)
@@ -114,8 +114,8 @@ static void BigiotLogoutCallbackFunc(char *recv_data)
 }
 
 /**
- *@brief 设备下线
- *@param id:设备id  apikey:设备apikey
+ *@brief  设备下线
+ *@param  id:设备id  apikey:设备apikey
  *@return 无
  */
 void BigiotLogout(const char *id,const char *apikey)
