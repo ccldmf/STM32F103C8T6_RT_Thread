@@ -23,13 +23,17 @@ char GetEsp8266DataCheckFlag(void);
  */
 void SetEsp8266DataCheckFlag(void);
 
-
-
 /**
  *@brief Esp8266模块检测
  *@param None
  */
 void Esp8266Check(void);
+
+/**
+ *@brief  Esp8266模块硬件重启
+ *@return None
+ */
+void Esp8266HartReseat(void);
 
 /**
  *@brief  Esp8266模块重启

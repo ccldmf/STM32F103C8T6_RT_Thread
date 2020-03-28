@@ -193,8 +193,21 @@ ESP8266 Configure:
 #define BSP_USING_SEMAPHORE
 #define BSP_USING_ESP8266
 #define BSP_ENABLE_ESP8266_DEBUG
-#define ESP8266_SSID            "TP-LINK_028A"
-#define ESP8266_PASSWORLD       "ccldmf1994"
+#define ESP8266_SSID                "TP-LINK_028A"
+#define ESP8266_PASSWORLD           "ccldmf1994"
+#define ESP8266_CONNECT_TCP_SERVER  "121.42.180.30"     // Bigiot server IP
+#define ESP8266_CONNECT_TCP_PORT     8181               // Bigiot server port
+
+
+/*-----------------------------------------------------
+Bigiot Configure:
+
+-----------------------------------------------------*/
+#define BIGIOT_SMART_HOUSE_ID           "6757"
+#define BIGIOT_SMART_HOUSE_APIKEY       "22203d59f"
+#define BIGIOT_SMART_HOUSE_TEMPERATURE  "6033"          // Temperature
+#define BIGIOT_SMART_HOUSE_HUMIDITY     "15364"         // Humidity
+
 
 #define BSP_USING_SPI
 #define BSP_USING_SPI1

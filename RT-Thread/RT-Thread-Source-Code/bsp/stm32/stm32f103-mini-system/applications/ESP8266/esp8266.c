@@ -11,6 +11,7 @@
 #include <string.h>
 #include<stdio.h>
 #include "../UART/uart.h"
+#include "../BIGIOT/bigiot.h"
 #include "esp8266.h"
 
 // ESP8266返回数据检查正确标志，被UART使用，检查正确，将清空接收buffer.
@@ -141,6 +142,14 @@ static void Esp8266ReseatCallbackFunc(void)
 #if defined BSP_ENABLE_ESP8266_DEBUG
     rt_kprintf("Esp8266ReseatCallbackFunc OK\n");
 #endif
+}
+
+/**
+ *@brief  Esp8266模块硬件重启
+ *@return None
+ */
+void Esp8266HartReseat(void)
+{
 }
 
 /**
@@ -509,7 +518,7 @@ static void Esp8266StatusChange(void)
         Esp8266SetSTAAutoConnect(0);
         break;
     case ESP8266_CONNECT_SERVER:
-        Esp8266ConnectServer("TCP","192.168.1.100", 8080);      // Current just for test
+        Esp8266ConnectServer("TCP",ESP8266_CONNECT_TCP_SERVER, ESP8266_CONNECT_TCP_PORT);      // Current just for test
         break;
     case ESP8266_DISCONNECT_SERVER:
         Esp8266DisableConnect();
@@ -532,6 +541,7 @@ static void Esp8266StatusChange(void)
     case ESP8266_IDLE:
         // ESP8266 module is ready to send data
         mEsp8266ControlSt.CurrentStatus = ESP8266_IDLE;
+        BigiotLogin((const char *)BIGIOT_SMART_HOUSE_ID,(const char *)BIGIOT_SMART_HOUSE_APIKEY);
         break;
     case ESP8266_ERROR:
     default:
