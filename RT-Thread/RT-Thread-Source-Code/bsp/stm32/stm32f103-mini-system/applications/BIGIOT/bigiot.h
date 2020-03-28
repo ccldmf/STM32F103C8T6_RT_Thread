@@ -12,6 +12,13 @@
 #define _BIGIOT_H
 
 /**
+ *@brief 设备登录成功标志
+ *@param None
+ *@return 1:成功  0:失败
+ */
+char BigiotLoginSuccessfulFlag(void);
+
+/**
  *@brief 设备登录
  *@param id:设备ID apikey:设备apikey
  *@return 无

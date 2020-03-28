@@ -17,7 +17,17 @@
 
 #include "../ESP8266/esp8266.h"
 
-char BigiotInitOKFlag = 0;
+static char mBigiotLoginSuccessfulFlag = 0;
+
+/**
+ *@brief 设备登录成功标志
+ *@param None
+ *@return 1:成功  0:失败
+ */
+char BigiotLoginSuccessfulFlag(void)
+{
+    return mBigiotLoginSuccessfulFlag;
+}
 
 /**
  *@brief 设备登录返回结果
@@ -29,8 +39,7 @@ static void BigiotLoginCallbackFunc(char *recv_data)
     // Return Data:{"M":"checkinok","ID":"xx1","NAME":"xx2","T":"xx3"}\n
     if(NULL != strstr(recv_data, "checkinok"))
     {
-        rt_kprintf("BigiotLoginCallbackFunc OK\n");
-        BigiotInitOKFlag = 1;
+        mBigiotLoginSuccessfulFlag = 1;
     }
 }
 
@@ -41,9 +50,9 @@ static void BigiotLoginCallbackFunc(char *recv_data)
  */
 void BigiotLogin(const char *id,const char *apikey)
 {
+    mBigiotLoginSuccessfulFlag = 0;
     char theSendPtr[60] = {0};
     sprintf(theSendPtr,"{\"M\":\"checkin\",\"ID\":\"%s\",\"K\":\"%s\"}\n", id, apikey);
-    rt_kprintf("BigiotLogin send data:%s\n",theSendPtr);
     Esp8266SendData(theSendPtr, BigiotLoginCallbackFunc);
 }
 
