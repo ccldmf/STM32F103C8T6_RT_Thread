@@ -169,6 +169,12 @@
 #define BSP_USING_GPIO
 
 /*-----------------------------------------------------
+LED Configure:
+
+-----------------------------------------------------*/
+#define LED0_PIN    GET_PIN(B, 12)
+
+/*-----------------------------------------------------
 USART Configure:
     PA9     ------> USART1_TX
     PA10    ------> USART1_RX
@@ -185,6 +191,13 @@ USART Configure:
 #define BSP_USING_UART3
 #define BSP_UART1_RX_USING_DMA
 #define BSP_UART2_RX_USING_DMA
+
+/*-----------------------------------------------------
+DHT11 Configure:
+
+-----------------------------------------------------*/
+#define DHT11_DATA_PIN    GET_PIN(B, 4)
+
 
 /*-----------------------------------------------------
 ESP8266 Configure:

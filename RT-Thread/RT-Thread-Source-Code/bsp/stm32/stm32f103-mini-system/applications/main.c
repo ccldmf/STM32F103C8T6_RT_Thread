@@ -11,89 +11,59 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 #include <board.h>
-
-/* defined the LED0 pin: PC13 */
-#define LED0_PIN    GET_PIN(B, 12)
-
-#define THREAD_PRIORITY     25
-#define THREAD_STACK_SIZE   512
-#define THREAD_TIMESLICE    5
-
-rt_thread_t tid1, tid2;
-
-static void thread1_entry(void *parameter)
-{
-    rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
-
-    while (1)
-    {
-        rt_pin_write(LED0_PIN, PIN_HIGH);
-        rt_thread_mdelay(50);
-        rt_pin_write(LED0_PIN, PIN_LOW);
-        rt_thread_mdelay(50);
-    }
-}
-
-static void thread1_cleanup(struct rt_thread *tid)
-{
-    if (tid != tid1)
-    {
-        return ;
-    }
-    rt_kprintf("thread1 end\n");
-    tid1 = RT_NULL;
-}
-
-static void thread2_entry(void *parameter)
-{
-    rt_uint32_t count = 0;
-
-    while (1)
-   {
-       //rt_kprintf("thread2 count: %d\n", count ++);
-       count ++;
-       rt_thread_mdelay(50);
-   }
-}
-
-static void thread2_cleanup(struct rt_thread *tid)
-{
-    if (tid != tid2)
-    {
-        return ;
-    }
-    rt_kprintf("thread2 end\n");
-    tid2 = RT_NULL;
-}
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "./UART/uart.h"
+#include "./ESP8266/esp8266.h"
+#include "./BIGIOT/bigiot.h"
+#include "./DHT11/dht11.h"
 
 
-void thread_sample_init()
-{
-
-    tid1 = rt_thread_create("t1",                                                   /* 线程1的名称是t1 */
-                            thread1_entry, RT_NULL,                                 /* 入口是thread1_entry，参数是RT_NULL */
-                            THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);  /* 优先级为 25 */
-
-    if (tid1 != RT_NULL)                                                            /* 如果获得线程控制块，启动这个线程 */
-    {
-        tid1->cleanup = thread1_cleanup;                                            /*thread1_cleanup在线程1退出后执行*/
-        rt_thread_startup(tid1);
-    }
-
-    /* 创建线程2 */
-    tid2 = rt_thread_create("t2",                                                   /* 线程2的名称是t2 */
-                            thread2_entry, RT_NULL,                                 /* 入口是thread2_entry，参数是RT_NULL */
-                            THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
-    if (tid2 != RT_NULL)                                                            /* 如果获得线程控制块，启动这个线程 */
-    {
-        tid2->cleanup = thread2_cleanup;
-        rt_thread_startup(tid2);
-    }
-}
 
 int main(void)
 {
-    thread_sample_init();
+    int ret;
+    int i = 0;
+    uint8_t theTemp,theHumi;
+    rt_int32_t theTempAndHumi;
+    rt_thread_mdelay(2000);         // Wait the ESP8266 module to work normally
+    rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
+    UART_Init(USING_UART_PORT_2);
+    UART_Init(USING_UART_PORT_3);
+    Esp8266Init();
+    ret = DHT11_Init();
+    if(0 != ret)
+    {
+        rt_kprintf("DHT11_Init failure\n");
+        return RT_ERROR;
+    }
+
+    while(1)
+    {
+        rt_pin_write(LED0_PIN, 0);
+        rt_thread_mdelay(500);
+        rt_pin_write(LED0_PIN, 1);
+        rt_thread_mdelay(500);
+
+        if( 1 == BigiotLoginSuccessfulFlag() )
+        {
+            theTempAndHumi = DHT11_GetTempAndHumi();
+            theTemp = (theTempAndHumi & 0xffff) >> 0;
+            theHumi = (theTempAndHumi & 0xffff0000) >> 16;
+            //rt_kprintf("Temp:%d,  Humi:%d\n",theTemp, theHumi);
+            if(i%2 == 0)
+            {
+                BigiotSendSingleData(BIGIOT_SMART_HOUSE_ID,BIGIOT_SMART_HOUSE_TEMPERATURE, theTemp);
+            }
+            else
+            {
+                BigiotSendSingleData(BIGIOT_SMART_HOUSE_ID,BIGIOT_SMART_HOUSE_HUMIDITY, theHumi);
+            }
+            i++;
+            rt_thread_mdelay(5000);
+        }
+    }
 
     return RT_EOK;
 }

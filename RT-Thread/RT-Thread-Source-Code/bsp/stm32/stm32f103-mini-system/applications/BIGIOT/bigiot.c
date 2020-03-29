@@ -61,10 +61,10 @@ void BigiotLogin(const char *id,const char *apikey)
  *@param  id:设备id data_id:数据接口ID value:值
  *@return 无
  */
-void BigiotSendSingleData(const char *id,const char *data_id,const char *value)
+void BigiotSendSingleData(const char *id,const char *data_id,char value)
 {
     char theSendPtr[60] = {0};
-    sprintf(theSendPtr,"{\"M\":\"update\",\"ID\":\"%s\",\"V\":{\"%s\":\"%s\"}}\n", id, data_id, value);
+    sprintf(theSendPtr,"{\"M\":\"update\",\"ID\":\"%s\",\"V\":{\"%s\":\"%d\"}}\n", id, data_id, value);
     Esp8266SendData(theSendPtr, NULL);
 }
 

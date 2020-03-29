@@ -541,6 +541,7 @@ static void Esp8266StatusChange(void)
     case ESP8266_IDLE:
         // ESP8266 module is ready to send data
         mEsp8266ControlSt.CurrentStatus = ESP8266_IDLE;
+        rt_kprintf("Start Login Bigiot\n");
         BigiotLogin((const char *)BIGIOT_SMART_HOUSE_ID,(const char *)BIGIOT_SMART_HOUSE_APIKEY);
         break;
     case ESP8266_ERROR:

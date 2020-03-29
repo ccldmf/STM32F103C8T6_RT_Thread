@@ -30,7 +30,7 @@ void BigiotLogin(const char *id,const char *apikey);
  *@param  id:设备id data_id:数据接口ID value:值
  *@return 无
  */
-void BigiotSendSingleData(const char *id,const char *data_id,const char *value);
+void BigiotSendSingleData(const char *id,const char *data_id,char value);
 
 /**
  *@brief  查询设备是否在线
