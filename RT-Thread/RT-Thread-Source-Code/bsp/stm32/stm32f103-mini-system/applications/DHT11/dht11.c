@@ -40,6 +40,16 @@
 #define RT_SENSOR_VENDOR_DALLAS (7u)
 #endif
 
+#define CONNECT_SUCCESS  0
+#define CONNECT_FAILED   1
+
+struct dht11_device
+{
+    rt_base_t pin;
+    rt_mutex_t lock;
+};
+typedef struct dht11_device *dht11_device_t;
+
 #ifndef rt_hw_us_delay
 RT_WEAK void rt_hw_us_delay(rt_uint32_t us)
 {
@@ -155,7 +165,7 @@ static uint8_t dht11_read_Data(rt_base_t pin,uint8_t *temp,uint8_t *humi)
     return 0;
 }
 
-uint8_t dht11_init(rt_base_t pin)
+static uint8_t dht11_init(rt_base_t pin)
 {
     uint8_t ret = 0;
 
@@ -220,7 +230,7 @@ static struct rt_sensor_ops sensor_ops =
 };
 
 static struct rt_sensor_device dht11_dev;
-int rt_hw_dht11_init(const char *name, struct rt_sensor_config *cfg)
+static int rt_hw_dht11_init(const char *name, struct rt_sensor_config *cfg)
 {
     rt_err_t result = RT_EOK;
     rt_sensor_t sensor = &dht11_dev;
@@ -270,3 +280,75 @@ __exit:
         rt_free(sensor->module);
     return result;
 }
+
+static int rt_hw_dht11_port(void)
+{
+    struct rt_sensor_config cfg;
+
+    cfg.intf.user_data = (void *)DHT11_DATA_PIN;
+    rt_hw_dht11_init("dht11", &cfg);
+
+    return RT_EOK;
+}
+INIT_COMPONENT_EXPORT(rt_hw_dht11_port);
+
+/*-----------------------------------------------------
+DHT11 Interface
+-----------------------------------------------------*/
+rt_device_t mDev = RT_NULL;
+struct rt_sensor_data mSensorData;
+
+/**
+ *@brief  DHT11模块初始化
+ *@param  None
+ *@return 1:成功  0:失败
+ */
+int DHT11_Init(void)
+{
+    rt_uint8_t get_data_freq = 1; /* 1Hz */
+
+    mDev = rt_device_find("temp_dht11");
+    if (mDev == RT_NULL)
+    {
+        return -1;
+    }
+
+    if (rt_device_open(mDev, RT_DEVICE_FLAG_RDWR) != RT_EOK)
+    {
+        rt_kprintf("open device failed!\n");
+        return -1;
+    }
+
+    rt_device_control(mDev, RT_SENSOR_CTRL_SET_ODR, (void *)(&get_data_freq));
+    return 0;
+}
+
+/**
+ *@brief  DHT11模块温度湿度数据读取
+ *@param  None
+ *@return 温度和湿度数据
+ */
+rt_int32_t DHT11_GetTempAndHumi(void)
+{
+    rt_size_t res;
+    res = rt_device_read(mDev, 0, &mSensorData, 1);
+    if (res != 1)
+    {
+        rt_kprintf("read data failed! result is %d\n", res);
+        rt_device_close(mDev);
+        return 0;
+    }
+    else
+    {
+        if (mSensorData.data.temp >= 0)
+        {
+             return mSensorData.data.temp;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+}
+
+

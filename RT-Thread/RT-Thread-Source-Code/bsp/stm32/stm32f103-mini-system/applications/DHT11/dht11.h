@@ -16,19 +16,20 @@
 #include <rtthread.h>
 #include <sensor.h>
 
-#define CONNECT_SUCCESS  0
-#define CONNECT_FAILED   1
+/**
+ *@brief  DHT11模块初始化
+ *@param  None
+ *@return 1:成功  0:失败
+ */
+int DHT11_Init(void);
 
-struct dht11_device
-{
-    rt_base_t pin;
-    rt_mutex_t lock;
-};
-typedef struct dht11_device *dht11_device_t;
+/**
+ *@brief  DHT11模块温度湿度数据读取
+ *@param  None
+ *@return 温度和湿度数据
+ */
+rt_int32_t DHT11_GetTempAndHumi(void);
 
-uint8_t dht11_init(rt_base_t pin);
-int32_t dht11_get_temperature(rt_base_t pin);
-int rt_hw_dht11_init(const char *name, struct rt_sensor_config *cfg);
 
 #endif /* __DHT11_H__ */
 
