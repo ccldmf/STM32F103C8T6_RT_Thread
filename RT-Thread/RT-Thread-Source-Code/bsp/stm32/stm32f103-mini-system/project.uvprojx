@@ -467,9 +467,19 @@
               <FilePath>.\applications\DHT11\dht11.c</FilePath>
             </File>
             <File>
-              <FileName>dht11_sample.c</FileName>
+              <FileName>esp8266.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\applications\DHT11\dht11_sample.c</FilePath>
+              <FilePath>.\applications\ESP8266\esp8266.c</FilePath>
+            </File>
+            <File>
+              <FileName>bigiot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\applications\BIGIOT\bigiot.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\applications\UART\uart.c</FilePath>
             </File>
           </Files>
         </Group>
