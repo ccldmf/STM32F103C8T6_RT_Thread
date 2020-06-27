@@ -31,28 +31,69 @@
 -----------------------------------------------------*/
 
 /*-----------------------------------------------------
+                    SPI Module
+-----------------------------------------------------*/
+#define    USING_SPI
+#define    USING_SPI1
+#define    USING_SPI2
+
+#ifdef USING_SPI
+#ifdef USING_SPI1
+// Clock, SCK pin of module and connect to SCK pin of SPI for the MCU.
+#define    SPI1_GPIO_SCK_CLK_FUN     RCC_APB2PeriphClockCmd
+#define    SPI1_GPIO_SCK_CLK         RCC_APB2Periph_GPIOA
+#define    SPI1_GPIO_SCK_PORT        GPIOA
+#define    SPI1_GPIO_SCK_PIN         GPIO_Pin_5
+#define    SPI1_GPIO_SCK_Mode        GPIO_Mode_Out_PP
+
+// Data input, MOSI pin of module and connect to MOSI pin of SPI for the MCU.
+#define    SPI1_GPIO_MOSI_CLK_FUN    RCC_APB2PeriphClockCmd
+#define    SPI1_GPIO_MOSI_CLK        RCC_APB2Periph_GPIOA
+#define    SPI1_GPIO_MOSI_PORT       GPIOA
+#define    SPI1_GPIO_MOSI_PIN        GPIO_Pin_7
+#define    SPI1_GPIO_MOSI_Mode       GPIO_Mode_Out_PP
+
+// Data output, MISO pin of module and connect to MISO pin of SPI for the MCU.
+#define    SPI1_GPIO_MISO_CLK_FUN    RCC_APB2PeriphClockCmd
+#define    SPI1_GPIO_MISO_CLK        RCC_APB2Periph_GPIOA
+#define    SPI1_GPIO_MISO_PORT       GPIOA
+#define    SPI1_GPIO_MISO_PIN        GPIO_Pin_6
+#define    SPI1_GPIO_MISO_Mode       GPIO_Mode_IN_FLOATING
+#endif
+
+#ifdef USING_SPI2
+// Clock, SCK pin of module and connect to SCK pin of SPI for the MCU.
+#define    SPI2_GPIO_SCK_CLK_FUN     RCC_APB2PeriphClockCmd
+#define    SPI2_GPIO_SCK_CLK         RCC_APB2Periph_GPIOB
+#define    SPI2_GPIO_SCK_PORT        GPIOB
+#define    SPI2_GPIO_SCK_PIN         GPIO_Pin_13
+#define    SPI2_GPIO_SCK_Mode        GPIO_Mode_Out_PP
+
+// Data input, MOSI pin of module and connect to MOSI pin of SPI for the MCU.
+#define    SPI2_GPIO_MOSI_CLK_FUN    RCC_APB2PeriphClockCmd
+#define    SPI2_GPIO_MOSI_CLK        RCC_APB2Periph_GPIOB
+#define    SPI2_GPIO_MOSI_PORT       GPIOB
+#define    SPI2_GPIO_MOSI_PIN        GPIO_Pin_15
+#define    SPI2_GPIO_MOSI_Mode       GPIO_Mode_Out_PP
+
+// Data output, MISO pin of module and connect to MISO pin of SPI for the MCU.
+#define    SPI2_GPIO_MISO_CLK_FUN    RCC_APB2PeriphClockCmd
+#define    SPI2_GPIO_MISO_CLK        RCC_APB2Periph_GPIOB
+#define    SPI2_GPIO_MISO_PORT       GPIOB
+#define    SPI2_GPIO_MISO_PIN        GPIO_Pin_14
+#define    SPI2_GPIO_MISO_Mode       GPIO_Mode_IN_FLOATING
+#endif
+#endif
+/*-----------------------------------------------------
+                    End of SPI Module
+-----------------------------------------------------*/
+
+
+/*-----------------------------------------------------
                     RC522 Module
 -----------------------------------------------------*/
-// Clock, SCK pin of RC522 module and connect to SCK pin of SPI for the MCU.
-#define    RC522_GPIO_SCK_CLK_FUN     RCC_APB2PeriphClockCmd
-#define    RC522_GPIO_SCK_CLK         RCC_APB2Periph_GPIOA
-#define    RC522_GPIO_SCK_PORT        GPIOA
-#define    RC522_GPIO_SCK_PIN         GPIO_Pin_5
-#define    RC522_GPIO_SCK_Mode        GPIO_Mode_Out_PP
-
-// Data input, MOSI pin of RC522 module and connect to MOSI pin of SPI for the MCU.
-#define    RC522_GPIO_MOSI_CLK_FUN    RCC_APB2PeriphClockCmd
-#define    RC522_GPIO_MOSI_CLK        RCC_APB2Periph_GPIOA
-#define    RC522_GPIO_MOSI_PORT       GPIOA
-#define    RC522_GPIO_MOSI_PIN        GPIO_Pin_7
-#define    RC522_GPIO_MOSI_Mode       GPIO_Mode_Out_PP
-
-// Data output, MISO pin of RC522 module and connect to MISO pin of SPI for the MCU.
-#define    RC522_GPIO_MISO_CLK_FUN    RCC_APB2PeriphClockCmd
-#define    RC522_GPIO_MISO_CLK        RCC_APB2Periph_GPIOA
-#define    RC522_GPIO_MISO_PORT       GPIOA
-#define    RC522_GPIO_MISO_PIN        GPIO_Pin_6
-#define    RC522_GPIO_MISO_Mode       GPIO_Mode_IN_FLOATING
+// Set RC522 module using SPI port
+#define    RC522_USING_SPI            SPI1_PORT
 
 // Select Chip, SDA pin of RC522 and connect to universal IO pin of MCU.
 #define    RC522_GPIO_CS_CLK_FUN      RCC_APB2PeriphClockCmd

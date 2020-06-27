@@ -94,18 +94,18 @@ static void RC522_CalulateCRC( uint8_t *aInData ,
                          uint8_t *aOutputData );
 
 /**
-  * @brief  Send byte to RC522 by SPI
+  * @brief  Configure RC522 module CS pin
   * @param  None
   * @retval None
   */
-static void RC522_SPISendByte( uint8_t aByte );
+static void RC522_CS_Configure( void );
 
 /**
-  * @brief  Read byte from RC522 by SPI
+  * @brief  Configure RC522 module RST pin
   * @param  None
   * @retval None
   */
-static uint8_t RC522_SPIReadByte( void );
+static void RC522_RST_Configure( void );
 
 /**
   * @brief  RC522 module init
@@ -114,7 +114,9 @@ static uint8_t RC522_SPIReadByte( void );
   */
 void RC522_Init( void )
 {
-    SPIx_Init();            // Need improvement
+    SPIx_Init( RC522_USING_SPI );
+    RC522_CS_Configure();
+    RC522_RST_Configure();
     RC522_Reset_Disable();
     RC522_CS_Disable();
 }
@@ -455,8 +457,8 @@ static void RC522_WriteDataToRegister( uint8_t aAddr , uint8_t aValue )
     theAddr = ( aAddr << 1 ) & 0x7F;
     RC522_CS_Enable();
 
-    RC522_SPISendByte( theAddr );
-    RC522_SPISendByte( aValue );
+    SPI_SendByte( RC522_USING_SPI , theAddr );
+    SPI_SendByte( RC522_USING_SPI , aValue );
 
     RC522_CS_Disable();
 }
@@ -473,8 +475,8 @@ static uint8_t RC522_ReadDataFromRegister( uint8_t aAddr )
     theAddr = ( ( aAddr << 1) & 0x7E ) | 0x80;
     RC522_CS_Enable();
 
-    RC522_SPISendByte( theAddr );
-    theReadData = RC522_SPIReadByte();
+    SPI_SendByte( RC522_USING_SPI ,theAddr );
+    theReadData = SPI_ReadByte( RC522_USING_SPI );
 
     RC522_CS_Disable();
     return theReadData;
@@ -683,59 +685,36 @@ static void RC522_CalulateCRC( uint8_t *aInData ,
 }
 
 /**
-  * @brief  Send byte to RC522 by SPI
+  * @brief  Configure RC522 module CS pin
   * @param  None
   * @retval None
   */
-static void RC522_SPISendByte( uint8_t aByte )
+static void RC522_CS_Configure( void )
 {
-    uint8_t i;
-    for( i = 0 ; i < 8 ; i++ )
-    {
-        if( aByte & 0x80 )
-        {
-            RC522_MOSI_1();
-        }
-        else
-        {
-            RC522_MOSI_0();
-        }
-        Delay_us ( 2 );
-        RC522_SCK_0 ();
+    GPIO_InitTypeDef GPIO_InitStructure;
 
-        Delay_us ( 2 );
-        RC522_SCK_1();
-
-        Delay_us ( 2 );
-
-        aByte <<= 1;
-    }
+    /*!< Configure SPI2 pins: CS */
+    RC522_GPIO_CS_CLK_FUN( RC522_GPIO_CS_CLK , ENABLE );
+    GPIO_InitStructure.GPIO_Pin = RC522_GPIO_CS_PIN;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode = RC522_GPIO_CS_Mode;
+    GPIO_Init( RC522_GPIO_CS_PORT , &GPIO_InitStructure );
 }
 
 /**
-  * @brief  Read byte from RC522 by SPI
+  * @brief  Configure RC522 module RST pin
   * @param  None
   * @retval None
   */
-static uint8_t RC522_SPIReadByte( void )
+static void RC522_RST_Configure( void )
 {
-    uint8_t i , theReadData;
+    GPIO_InitTypeDef GPIO_InitStructure;
 
-    for( i = 0 ; i < 8 ; i++ )
-    {
-        theReadData <<= 1;
-        RC522_SCK_0();
-
-        Delay_us ( 2 );
-        if( RC522_MISO_GET() == 1 )
-        {
-            theReadData |= 0x01;
-        }
-
-        Delay_us ( 2 );
-        RC522_SCK_1();
-        Delay_us ( 2 );
-    }
-    return theReadData;
+    /*!< Configure SPI_RC522_SPI pins: RST */
+    RC522_GPIO_RST_CLK_FUN( RC522_GPIO_RST_CLK , ENABLE );
+    GPIO_InitStructure.GPIO_Pin = RC522_GPIO_RST_PIN;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode = RC522_GPIO_RST_Mode;
+    GPIO_Init( RC522_GPIO_RST_PORT , &GPIO_InitStructure );
 }
 

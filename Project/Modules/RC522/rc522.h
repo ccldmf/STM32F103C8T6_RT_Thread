@@ -118,13 +118,6 @@ uint8_t RC522_ReadDataFromBlock( uint8_t aAddr , uint8_t *aData );
 #define    RC522_Reset_Enable()     GPIO_ResetBits( RC522_GPIO_RST_PORT , RC522_GPIO_RST_PIN )
 #define    RC522_Reset_Disable()    GPIO_SetBits ( RC522_GPIO_RST_PORT , RC522_GPIO_RST_PIN )
 
-#define    RC522_SCK_0()            GPIO_ResetBits( RC522_GPIO_SCK_PORT , RC522_GPIO_SCK_PIN )
-#define    RC522_SCK_1()            GPIO_SetBits ( RC522_GPIO_SCK_PORT , RC522_GPIO_SCK_PIN )
-
-#define    RC522_MOSI_0()           GPIO_ResetBits( RC522_GPIO_MOSI_PORT , RC522_GPIO_MOSI_PIN )
-#define    RC522_MOSI_1()           GPIO_SetBits ( RC522_GPIO_MOSI_PORT , RC522_GPIO_MOSI_PIN )
-
-#define    RC522_MISO_GET()         GPIO_ReadInputDataBit ( RC522_GPIO_MISO_PORT , RC522_GPIO_MISO_PIN )
 
 /*-----------------------------------------------------
         RC522 module register define
