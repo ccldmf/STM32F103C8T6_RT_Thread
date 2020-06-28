@@ -23,6 +23,9 @@
 #include "dht11.h"
 #include <stdio.h>
 #include "rc522.h"
+#include "systemConfigure.h"
+
+#ifdef ENABLE_RC522_MODULE
 
 static uint8_t WriteAmount( uint8_t aAddr , uint32_t aValue )
 {
@@ -121,6 +124,7 @@ void IC_test ( void )
         }
     }
 }
+#endif /* ENABLE_RC522_MODULE */
 
 /**
   * @brief  Application.
@@ -138,9 +142,11 @@ int main(void)
     USART_Configuration(USART2,115200);
     USART_Configuration(USART3,115200);
     //DHT11_Init();
+#ifdef ENABLE_RC522_MODULE
     RC522_Init ();
     RC522_Reset();
     RC522_ConfigType( 'A' );
+#endif
     printf("************************************\n");
     printf("*          Smart House Iinit       *\n");
     printf("************************************\n");
@@ -149,7 +155,9 @@ int main(void)
     while (1)
     {
         printf("Uart test\n");
+#ifdef ENABLE_RC522_MODULE
         IC_test ();
+#endif
         LED_On();
         Delay_ms(500);
         LED_Off();

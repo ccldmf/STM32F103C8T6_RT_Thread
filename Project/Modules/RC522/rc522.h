@@ -23,6 +23,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
+#include "systemConfigure.h"
+
+#ifdef ENABLE_RC522_MODULE
 
 /**
   * @brief  RC522 module init
@@ -223,6 +226,7 @@ uint8_t RC522_ReadDataFromBlock( uint8_t aAddr , uint8_t *aData );
 #define    MI_NOTAGERR          0xcc
 #define    MI_ERR               0xbb
 
+#endif  /* ENABLE_RC522_MODULE */
 
 #ifdef __cplusplus
 }

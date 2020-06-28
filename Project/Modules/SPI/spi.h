@@ -23,6 +23,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
+#include "systemConfigure.h"
+
+#ifdef ENABLE_SPI
 
 typedef enum
 {
@@ -51,6 +54,8 @@ void SPI_SendByte( SPI_PORT aPort , uint8_t aByte );
   * @retval Read byte
   */
 uint8_t SPI_ReadByte( SPI_PORT aPort );
+
+#endif  /* ENABLE_SPI */
 
 #ifdef __cplusplus
 }

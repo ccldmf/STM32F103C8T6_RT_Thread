@@ -33,11 +33,12 @@
 /*-----------------------------------------------------
                     SPI Module
 -----------------------------------------------------*/
-#define    USING_SPI
+#define    ENABLE_SPI
 #define    USING_SPI1
-#define    USING_SPI2
+//#define    USING_SPI2
 
-#ifdef USING_SPI
+#ifdef ENABLE_SPI
+
 #ifdef USING_SPI1
 // Clock, SCK pin of module and connect to SCK pin of SPI for the MCU.
 #define    SPI1_GPIO_SCK_CLK_FUN     RCC_APB2PeriphClockCmd
@@ -59,7 +60,7 @@
 #define    SPI1_GPIO_MISO_PORT       GPIOA
 #define    SPI1_GPIO_MISO_PIN        GPIO_Pin_6
 #define    SPI1_GPIO_MISO_Mode       GPIO_Mode_IN_FLOATING
-#endif
+#endif  /* USING_SPI1 */
 
 #ifdef USING_SPI2
 // Clock, SCK pin of module and connect to SCK pin of SPI for the MCU.
@@ -82,8 +83,9 @@
 #define    SPI2_GPIO_MISO_PORT       GPIOB
 #define    SPI2_GPIO_MISO_PIN        GPIO_Pin_14
 #define    SPI2_GPIO_MISO_Mode       GPIO_Mode_IN_FLOATING
-#endif
-#endif
+#endif  /* USING_SPI2 */
+
+#endif  /* ENABLE_SPI */
 /*-----------------------------------------------------
                     End of SPI Module
 -----------------------------------------------------*/
@@ -92,6 +94,10 @@
 /*-----------------------------------------------------
                     RC522 Module
 -----------------------------------------------------*/
+#define     ENABLE_RC522_MODULE
+
+#ifdef ENABLE_RC522_MODULE
+
 // Set RC522 module using SPI port
 #define    RC522_USING_SPI            SPI1_PORT
 
@@ -108,6 +114,7 @@
 #define    RC522_GPIO_RST_PORT        GPIOB
 #define    RC522_GPIO_RST_PIN         GPIO_Pin_1
 #define    RC522_GPIO_RST_Mode        GPIO_Mode_Out_PP
+#endif /* ENABLE_RC522_MODULE */
 /*-----------------------------------------------------
                 End of RC522 Module
 -----------------------------------------------------*/

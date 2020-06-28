@@ -20,7 +20,7 @@
 #include "delay.h"
 #include "systemConfigure.h"
 
-#ifdef USING_SPI
+#ifdef ENABLE_SPI
 #if !defined (USING_SPI1) && !defined (USING_SPI2)
  #error "Please select a SPI port to send or read data."
 #endif
@@ -54,7 +54,7 @@ static void SPI1_SendByte( uint8_t aByte );
   */
 static uint8_t SPI1_ReadByte( void );
 
-#endif
+#endif  /* USING_SPI1 */
 
 #ifdef USING_SPI2
 /********************************* SPI2 define functions **********************/
@@ -84,7 +84,7 @@ static void SPI2_SendByte( uint8_t aByte );
   * @retval Read byte
   */
 static uint8_t SPI2_ReadByte( void );
-#endif
+#endif  /* USING_SPI2 */
 
 /**
   * @brief  SPI Init
@@ -256,7 +256,7 @@ static uint8_t SPI1_ReadByte( void )
     return theReadData;
 }
 
-#endif
+#endif  /* USING_SPI1 */
 
 #ifdef USING_SPI2
 /**
@@ -347,7 +347,7 @@ static uint8_t SPI2_ReadByte( void )
     }
     return theReadData;
 }
-#endif
+#endif  /* USING_SPI2 */
 
-#endif /* USING_SPI */
+#endif /* ENABLE_SPI */
 

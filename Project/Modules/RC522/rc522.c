@@ -20,6 +20,11 @@
 #include "spi.h"
 #include "delay.h"
 
+#ifdef ENABLE_RC522_MODULE
+#if !defined ENABLE_SPI
+ #error "Please enable SPI bus."
+#endif
+
 #define MAXRLEN  18
 
 /**
@@ -168,7 +173,7 @@ void RC522_ConfigType( uint8_t aType )
         RC522_WriteDataToRegister( TReloadRegH , 0 );
         RC522_WriteDataToRegister( TModeReg , 0x8D );
         RC522_WriteDataToRegister( TPrescalerReg , 0x3E );
-        Delay_us ( 2 );
+        Delay_us( 2 );
         RC522_OpenAntenna();
     }
 }
@@ -718,3 +723,4 @@ static void RC522_RST_Configure( void )
     GPIO_Init( RC522_GPIO_RST_PORT , &GPIO_InitStructure );
 }
 
+#endif /* ENABLE_RC522_MODULE */
