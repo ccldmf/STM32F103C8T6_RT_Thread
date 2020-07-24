@@ -217,13 +217,13 @@ static void SPI1_SendByte( uint8_t aByte )
         {
             SPI1_MOSI_LOW();
         }
-        Delay_us( 2 );
+        //Delay_us( 2 );
 
         SPI1_SCK_LOW();
-        Delay_us( 2 );
+        //Delay_us( 2 );
 
         SPI1_SCK_HIGH();
-        Delay_us( 2 );
+        //Delay_us( 2 );
 
         aByte <<= 1;
     }

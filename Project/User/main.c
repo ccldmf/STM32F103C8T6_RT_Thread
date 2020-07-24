@@ -22,11 +22,16 @@
 #include "bigiot.h"
 #include "dht11.h"
 #include <stdio.h>
-#include "rc522.h"
 #include "systemConfigure.h"
+#ifdef ENABLE_LCD_MODULE
+#include "lcd.h"
+#include "systemColor.h"
+#endif
+#ifdef ENABLE_RC522_MODULE
+#include "rc522.h"
+#endif
 
 #ifdef ENABLE_RC522_MODULE
-
 static uint8_t WriteAmount( uint8_t aAddr , uint32_t aValue )
 {
     uint8_t theStatus;
@@ -96,35 +101,51 @@ void IC_test ( void )
     char cStr [ 30 ];
     uint8_t ucArray_ID [ 4 ];
     uint8_t ucStatusReturn;
-    while ( 1 )
+    if ( ( ucStatusReturn = RC522_LookForCard( PICC_REQIDL, ucArray_ID ) ) != MI_OK )
+    ucStatusReturn = RC522_LookForCard( PICC_REQIDL, ucArray_ID );
+
+    if ( ucStatusReturn == MI_OK )
     {
-        if ( ( ucStatusReturn = RC522_LookForCard( PICC_REQIDL, ucArray_ID ) ) != MI_OK )
-        ucStatusReturn = RC522_LookForCard( PICC_REQIDL, ucArray_ID );
-
-        if ( ucStatusReturn == MI_OK )
+        if ( RC522_PreventCollision( ucArray_ID ) == MI_OK )
         {
-            if ( RC522_PreventCollision( ucArray_ID ) == MI_OK )
+            RC522_SelectCard(ucArray_ID);
+
+            RC522_VerifyCardPassword( PICC_AUTHENT1A, 0x11, KeyValue, ucArray_ID );
+            WriteAmount(0x11,writeValue);
+            if(ReadAmount(0x11,&readValue) == MI_OK)
             {
-                RC522_SelectCard(ucArray_ID);
-
-                RC522_VerifyCardPassword( PICC_AUTHENT1A, 0x11, KeyValue, ucArray_ID );
-                WriteAmount(0x11,writeValue);
-                if(ReadAmount(0x11,&readValue) == MI_OK)
-                {
-                    writeValue +=100;
-                    sprintf ( cStr, "The Card ID is: %02X%02X%02X%02X",ucArray_ID [0], ucArray_ID [1], ucArray_ID [2],ucArray_ID [3] );
-                    printf ( "%s\r\n",cStr );
+                writeValue +=100;
+                sprintf ( cStr, "The Card ID is: %02X%02X%02X%02X",ucArray_ID [0], ucArray_ID [1], ucArray_ID [2],ucArray_ID [3] );
+                printf ( "%s\r\n",cStr );
 
 
-                    printf ("The balance is:%d\r\n",readValue);
-                    sprintf ( cStr, "TThe residual amount: %d", readValue);
-                    RC522_SetCardToDormancyState();
-                }
+                printf ("The balance is:%d\r\n",readValue);
+                sprintf ( cStr, "TThe residual amount: %d", readValue);
+                RC522_SetCardToDormancyState();
             }
         }
     }
 }
 #endif /* ENABLE_RC522_MODULE */
+
+#ifdef ENABLE_LCD_MODULE
+static void LCD_Test(void)
+{
+    int i,j;
+    for( i = 0; i < LCD_WIDTH; i++ )
+    {
+        for( j = 0; j < LCD_HEIGHT; j++ )
+        {
+            Lcd_DrawPoint( i , j , YELLOW );
+        }
+    }
+
+    Lcd_SetColor( RED );
+    Delay_ms(500);
+    Lcd_SetColor(GRAY0);
+    Delay_ms(500);
+}
+#endif
 
 /**
   * @brief  Application.
@@ -147,37 +168,33 @@ int main(void)
     RC522_Reset();
     RC522_ConfigType( 'A' );
 #endif
+#ifdef ENABLE_LCD_MODULE
+    Lcd_Init();
+    Lcd_BLK_Turn_On();
+#endif
     printf("************************************\n");
     printf("*          Smart House Iinit       *\n");
     printf("************************************\n");
 
-
-    while (1)
+    while(1)
     {
-        printf("Uart test\n");
-#ifdef ENABLE_RC522_MODULE
+    #ifdef ENABLE_RC522_MODULE
         IC_test ();
-#endif
-        LED_On();
-        Delay_ms(500);
-        LED_Off();
-        Delay_ms(500);
-    #if 0
-        LED_On();
-        Delay_ms(100);
-        LED_Off();
-        Delay_ms(100);
-        DHT11_ReadData();
-        theTmp = DHT11_GetTem();
-        printf("Tem = %d.%d\n" , (theTmp>>8) , (theTmp&0xFF));
-        theTmp = DHT11_GetHum();
-        printf("Hum = %d.%d\n" , (theTmp>>8) , (theTmp&0xFF));
-        Delay_ms(1500);
     #endif
+    #ifdef ENABLE_LCD_MODULE
+        LCD_Test();
+    #endif
+    LED_On();
+    Delay_ms(500);
+    LED_Off();
+    Delay_ms(500);
+    /*
+    DHT11_ReadData();
+    theTmp = DHT11_GetTem();
+    printf("Tem = %d.%d\n" , (theTmp>>8) , (theTmp&0xFF));
+    theTmp = DHT11_GetHum();
+    printf("Hum = %d.%d\n" , (theTmp>>8) , (theTmp&0xFF));
+    */
     }
 }
-
-
-
-
 
