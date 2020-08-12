@@ -176,6 +176,21 @@
                 End of RC522 Module
 -----------------------------------------------------*/
 
+/*-----------------------------------------------------
+					DHT11 Module
+-----------------------------------------------------*/
+#define ENABLE_DHT11_MODULE
+
+#ifdef ENABLE_DHT11_MODULE
+#define DHT11_RCC         RCC_APB2Periph_GPIOA
+#define DHT11_GPIO        GPIOA
+#define DHT11_GPIO_PIN    GPIO_Pin_0
+#endif /* ENABLE_DHT11_MODULE */ 
+/*-----------------------------------------------------
+				End of DHT11  Module
+-----------------------------------------------------*/
+
+
 #ifdef __cplusplus
 }
 #endif

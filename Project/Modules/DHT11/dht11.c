@@ -18,6 +18,8 @@
 #include "dht11.h"
 #include "delay.h"
 
+#ifdef ENABLE_DHT11_MODULE 
+
 /* Define a global parameter to save the data of read from DHT11 module. -----*/
 DHT11_TypeDef DHT11;
 
@@ -175,5 +177,7 @@ float DHT11_GetHum( void )
 {
     return (DHT11.Hum_H << 8 | DHT11.Hum_L);
 }
+
+#endif /* ENABLE_DHT11_MODULE */
 
 /******************* (C) COPYRIGHT 2019 CC *****END OF FILE****/

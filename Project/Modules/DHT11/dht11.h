@@ -24,11 +24,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
 #include "stm32f10x_gpio.h"
+#include "systemConfigure.h"
 
-/* Define the DHT11 pins ----------------------------------------------------**/
-#define DHT11_RCC         RCC_APB2Periph_GPIOB
-#define DHT11_GPIO        GPIOB
-#define DHT11_GPIO_PIN    GPIO_Pin_7
+#ifdef ENABLE_DHT11_MODULE
 
 /* Define the DHT11 module return data structure -----------------------------*/
 typedef struct _DHT11
@@ -46,6 +44,8 @@ uint32_t DHT11_ReadData( void );
 float DHT11_GetTem( void );
 
 float DHT11_GetHum( void );
+
+#endif /* ENABLE_DHT11_MODULE */
 
 #ifdef __cplusplus
 }
