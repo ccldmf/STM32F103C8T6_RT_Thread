@@ -26,6 +26,10 @@
 #ifdef ENABLE_LCD_MODULE
 #include "lcd.h"
 #include "systemColor.h"
+#ifdef USING_GUI
+#include "GUI.h"
+#include "Picture.h"
+#endif
 #endif
 #ifdef ENABLE_RC522_MODULE
 #include "rc522.h"
@@ -147,6 +151,37 @@ static void LCD_Test(void)
 }
 #endif
 
+#ifdef USING_GUI
+void Num_Test( void )
+{
+	unsigned char Num[ 10 ] = { 0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 };
+    u8 i = 0;
+    Lcd_SetColor( GRAY0 );
+    Gui_DrawFont_GBK16( 16 , 20 , RED , GRAY0 , "Num Test" );
+    Delay_ms( 1000 );
+    Lcd_SetColor( GRAY0 );
+
+    for( i = 0 ; i < 10 ; i++ )
+    {
+        GUI_DrawNum( ( i % 3 ) * 40 , 32 * ( i / 3 ) + 5 , RED , GRAY0 , Num[ i + 1 ] );
+        Delay_ms( 100 );
+    }
+}
+
+static void GUI_Test( void )
+{
+	Gui_Circle( 30 , 30 , 20 , RED );
+	Gui_DrawLine( 10 , 24 , 100 , 150 , BLUE );
+	GUI_DrawButtonUp( 15 , 68 , 113 , 88 );
+	GUI_DrawButtonDown( 15 , 100 , 113 , 120 );
+	Delay_ms( 2000 );
+	GUI_DrawImage( 120 , 90 , mImage );
+	Delay_ms( 3000 );
+	Num_Test();
+	Delay_ms( 3000 );
+}
+#endif
+
 /**
   * @brief  Application.
   * @param  None
@@ -184,6 +219,9 @@ int main(void)
     #ifdef ENABLE_LCD_MODULE
         LCD_Test();
     #endif
+	#ifdef USING_GUI
+		GUI_Test();
+	#endif
     LED_On();
     Delay_ms(500);
     LED_Off();

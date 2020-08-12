@@ -106,6 +106,7 @@
 #define    ENABLE_LCD_MODULE
 
 #ifdef ENABLE_LCD_MODULE
+#define    USING_GUI
 #define    LCD_WIDTH               128
 #define    LCD_HEIGHT              160
 
