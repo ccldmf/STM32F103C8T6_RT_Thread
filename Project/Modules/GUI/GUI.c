@@ -17,6 +17,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "lcd.h"
 #include "GUI.h"
+#include <math.h>
 
 #include "delay.h"
 #include "font.h"
@@ -345,6 +346,82 @@ void GUI_DrawNum( uint16_t aX , uint16_t aY , uint16_t aNumColor , uint16_t aBac
 			}
 		}
 	}
+}
+
+static void intToString( uint32_t N , uint8_t arr[] )
+{
+	int i , j , flag;
+	uint8_t stack[ 10 ]; 
+	i = 0; 
+	
+	if( N < 0 ) 
+	{
+		flag = 0; 
+		N = -N;
+
+	}
+	else 
+	{
+		flag = 1; 
+	}
+	
+	while( N / 10 != 0 ) 
+	{
+		stack[ i ] = ( uint8_t )( 48 + N % 10 ); 
+		N = N / 10;
+		i++;
+	}
+	
+	stack[ i ] = ( uint8_t )( 48 + N ); 
+	if( flag == 0 ) 
+	{
+		arr[ 0 ] = '-';
+		for( j = i ; j > -1 ; j-- ) 
+		{
+			arr[ i - j + 1 ] = stack[ j ];
+		}
+		arr[ i + 2 ] = '\0'; 
+	}
+	else
+	{
+		for( j = i ; j > -1 ; j-- ) 
+		{
+			arr[ i - j ] = stack[ j ];
+		}
+		arr[ i + 1 ] = '\0';
+	}
+}
+
+/**
+  * @brief  Display number
+  * @param  aX: Position x
+  * @param  aY: Position y  
+  * @param  aNumColor: number color
+  * @param  aBackgrounColor: background color
+  * @param  aNum: number
+  * @retval None
+  */
+void GUI_DisplayNumber( uint32_t aX , uint32_t aY , uint16_t aNumColor , uint16_t aBackgrounColor , uint32_t aNum )
+{
+	uint8_t i , theCount = 0;
+	uint32_t theTemp;
+	uint8_t tempArray[10];
+	
+	theTemp = aNum;
+	while( theTemp )
+	{
+		theCount++;
+		theTemp /= 10;
+	}
+	
+	for( i = 0 ; i < theCount ; i++ )
+	{
+		theTemp = ( aNum / ( pow( 10 , ( theCount - i - 1 ) ) ) );
+		intToString( theTemp , tempArray );
+		Gui_DrawFont_GBK16( aX + i * 8 , aY , aNumColor , aBackgrounColor ,  tempArray );
+		aNum = aNum - theTemp * pow( 10 , ( theCount - i - 1 ) );
+	}
+
 }
 
 /**

@@ -90,6 +90,17 @@ void Gui_DrawFont_GBK16( uint16_t aX , uint16_t aY , uint16_t aFontColor , uint1
 void GUI_DrawNum( uint16_t aX , uint16_t aY , uint16_t aNumColor , uint16_t aBackgrounColor , uint16_t aNum ) ;
 
 /**
+  * @brief  Display number
+  * @param  aX: Position x
+  * @param  aY: Position y  
+  * @param  aNumColor: number color
+  * @param  aBackgrounColor: background color
+  * @param  aNum: number
+  * @retval None
+  */
+void GUI_DisplayNumber( uint32_t aX , uint32_t aY , uint16_t aNumColor , uint16_t aBackgrounColor , uint32_t aNum );
+
+/**
   * @brief  Draw number
   * @param  aImageWidth: image width
   * @param  aImageHigh: image high
