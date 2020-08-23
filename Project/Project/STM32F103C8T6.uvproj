@@ -362,7 +362,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER  STM32F10X_MD USART3_PRINTF</Define>
               <Undefine></Undefine>
-              <IncludePath>..\User;..\Core;..\Libraries\CMSIS\CM3\CoreSupport;..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\Libraries\STM32F10x_StdPeriph_Driver\src;..\Modules\Delay;..\Modules\DHT11;..\Modules\LED;..\Modules\Usart;..\Modules\ESP8266;..\Modules\Bigiot</IncludePath>
+              <IncludePath>..\User;..\Core;..\Libraries\CMSIS\CM3\CoreSupport;..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\Libraries\STM32F10x_StdPeriph_Driver\src;..\Modules\Delay;..\Modules\DHT11;..\Modules\LED;..\Modules\Usart;..\Modules\ESP8266;..\Modules\Bigiot;..\Modules\RC522;..\Modules\SPI;..\Modules\LCD;..\Modules\GUI</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -434,6 +434,26 @@
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Modules\Usart\usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\SPI\spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>rc522.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\RC522\rc522.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\LCD\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\GUI\GUI.c</FilePath>
             </File>
           </Files>
         </Group>
